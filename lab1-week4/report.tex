@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+		\vspace*{1cm}
+
+		\Huge
+		\textbf{Week 4 Lab Report}
+
+		\vspace{0.2cm}
+		\LARGE
+		CPS 706 Computer Networks
+
+		\vspace{1.5cm}
+
+		\textbf{Mitchell Mohorovich}\\
+		\vspace{0.2cm}
+		\Large
+		500563037\\
+		\Large
+		Section 5, Fridays 2-3PM
+
+		\vfill
+
+		\vspace{0.8cm}
+
+		\Large
+		Computer Science\\
+		Ryerson University\\
+	\end{center}
+\end{titlepage}
+
+
+\section{The Basic HTTP GET/Response Interaction}
+\begin{enumerate}
+	\item{My browser (Firefox v49.0.1 on macOS 10.12) is running HTTP version 1.1. The gaia.cs.umass.edu server is also running HTTP version 1.1.}
+	\item{Based on the \textit{Accept-Language} HTTP header, the browser I was using indicated that it accepts American English (en-US).}
+	\item{The IP of my computer was \textit{192.168.0.1} when running this lab at home. The IP of the \textit{gaia.cs.umass.edu} server was \textit{128.119.12.}}
+	\item{The status code of returned from the server to my computer was \textit{200}, with the message \textit{OK}.}
+	\item{The HMTL file that I was retrieving was last modified on the server at \textit{Sat, 01 Oct 2016 05:59:01 GMT}.}
+	\item{The size of the TCP packet returned from the server was 554 bytes, with 128 bytes of that being HTML content as specified in the \textit{Content-Length} HTTP header.}
+	\item{The Wireshark packet-listing pane only shows the HTTP Version, Status and Content Type, \textit{Content Length} is an HTTP header that was not shown in the packet-listing pane.}
+\end{enumerate}
+
+\section{The HTTP CONDITIONAL GET/Response Interaction}
+\begin{enumerate}
+		\setcounter{enumi}{7}
+	\item{No, there was not an \textit{If-Modified-Since} HTTP Header in the first GET request sent to the server.}
+	\item{Yes, the content of the html page were explicitly returned in the contents of the file. By analyzing the response packet, the markup is clearly visible in the contents.}
+	\item{In the second GET request, the \textit{If-Modified-Since} HTTP Header was present. The information contained was the time of when the previous response to the server was received.}
+	\item{The HTTP status code and message for the second GET request was \textit{304 Not Modified}. The server did not explicitly return the contents of the page. Since the status code 304 was returned, the browser instead displayed what it had stored in its cache.}
+\end{enumerate}
+
+\section{Retrieving Long Documents}
+\begin{enumerate}
+		\setcounter{enumi}{11}
+	\item{Only one GET request was sent to the server.}
+	\item{There were four data containing TCP segments, the initial contained HTTP headers in addition to content, while the other three contained only data for the TCP protocol and the page body.}
+	\item{The status code and message associated with the response was \textit{200 OK}.}
+	\item{No there was not, HTTP status lines were only present in the initial TCP response packet, all others only contained TCP information and the HTML content.}
+\end{enumerate}
+
+\section{HTML Documents with Embedded Objects}
+\begin{enumerate}
+		\setcounter{enumi}{15}
+	\item{There were four GET request messages sent from my browser. The GET requests were sent to \url{http://gaia.cs.umass.edu/pearson.png} and \url{http://caite.cs.umass.edu/~kurose/cover_5th_ed.jpg}.}
+	\item{You can tell if a browser downloaded the two images serially since the GET request for the second image was only sent after the last TCP continuation packet was recieved for the first image.}
+\end{enumerate}
+
+\section{HTTP Authentication}
+
+\begin{enumerate}
+		\setcounter{enumi}{17}
+	\item{The server's response status code and phrase in response to the initial HTTP GET message from my browser was \textit{403 Not Authorized}.}
+	\item{When my browser sent the HTTP GET message for the second time, it sent it with the username and password entered in the browser dialogue. The new HTTP header included in the HTTP GET message was \textit{Authorization: Basic}.}
+\end{enumerate}
+
+
+
+\end{document}
